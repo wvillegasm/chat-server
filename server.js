@@ -1,7 +1,10 @@
 'use strict';
 
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const PORT = process.env.PORT || 3000;
+
 
 const server = http.createServer();
 server.on('request', onRequest);
@@ -15,5 +18,12 @@ function onListening() {
 }
 
 function onRequest(req, res) {
-    return res.end('\n\nHello from Node Http Server\n\n');
+
+    let fileName = path.join(__dirname, 'public', 'index.html');
+    fs.readFile(fileName, (err, data) =>{
+        if(err) {
+            return res.end(err.message);
+        }
+        res.end(data);
+    });
 }
