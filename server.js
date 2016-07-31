@@ -3,8 +3,11 @@
 const http = require('http');
 const PORT = process.env.PORT || 3000;
 
-const server = http.createServer(onRequest);
-server.listen(PORT, onListening);
+const server = http.createServer();
+server.on('request', onRequest);
+server.on('listening', onListening);
+
+server.listen(PORT);
 
 
 function onListening() {
