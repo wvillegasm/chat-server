@@ -19,11 +19,12 @@ function onListening() {
 
 function onRequest(req, res) {
 
+    res.setHeader('Content-Type', 'text/html');
     let fileName = path.join(__dirname, 'public', 'index.html');
-    fs.readFile(fileName, (err, data) =>{
-        if(err) {
-            return res.end(err.message);
-        }
-        res.end(data);
-    });
+    let rs = fs.createReadStream(fileName);
+    rs.pipe(res);
+    rs.on('error', (err)=> res.end(err.message));
+    rs.on('end', ()=> console.log('No more data'));
+    rs.on('data', (chunk)=> console.log('->', chunk.toString(), '\n')); // use pipe
+
 }
