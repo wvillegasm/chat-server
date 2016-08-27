@@ -4,9 +4,12 @@
   "description": "Application to explore Node.js applying micromodules",
   "main": "server.js",
   "dependencies": {
-    "st": "^1.2.0"
+    "st": "^1.2.0",
+    "webrtc2images": "^1.4.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browserify": "^13.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
