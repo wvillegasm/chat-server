@@ -5,19 +5,21 @@ const st = require('st');
 
 const mount = st({
     path: path.join(__dirname, '..', 'public'),
+    url:'/',
+    passthrough: true,
     index: 'index.html'
 });
 
 
 function onRequest(req, res) {
-    mount(req, res, (err)=> {
-        if (err) {
-            return res.end('Error FOUND: ', err.message);
+    console.log(`onRequest: ${req.url}`);
+    mount(req,
+        res,
+        ()=> {
+            res.statusCode = 404;
+            res.end(`File Not found: ${req.url}`);
         }
-
-        res.statusCode = 404;
-        res.end(`Not found: ${req.url}`);
-    });
+    );
 }
 
 module.exports = onRequest;
